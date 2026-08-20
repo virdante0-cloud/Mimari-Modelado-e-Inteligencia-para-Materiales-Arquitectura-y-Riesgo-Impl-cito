@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIMARI | Plataforma de Inteligencia Geotécnica y Arquitectónica</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+
+<body>
+  <header class="hero">
+    <nav class="menu">
+      <div class="brand">
+        <strong>MIMARI</strong>
+        <span class="sub-brand">Modelado e Inteligencia para Materiales, Arquitectura y Riesgo Implícito</span>
+      </div>
+      <div class="nav-links">
+        <a href="#problematica">Problemática</a>
+        <a href="#objetivo">Objetivo</a>
+        <a href="#justificacion">Justificación</a>
+        <a href="#procesamiento">Procesamiento IA</a>
+        <a href="#simulador" class="btn-nav">Ir al Simulador</a>
+      </div>
+    </nav>
+    <div class="hero-content">
+      <h1>Dimensionamiento Espacial y Evaluación de Riesgo Geotécnico con IA</h1>
+      <p>Integración de análisis EXIF, visión por computador y cálculo estructural normativo para la viabilidad de
+        construcción en tiempo real.</p>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- Problemática Científica -->
+    <article class="card destacado" id="problematica">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      </div>
+      <h2>Planteamiento de la Problemática</h2>
+      <p>
+        Las herramientas tradicionales de estimación presupuestal y CAD ejecutan cálculos puramente matemáticos sobre
+        entornos asumiendo terrenos ideales e isótropos. En la construcción informal y proyectos de pequeña/mediana
+        escala, se omite el análisis geotécnico preliminar, lo que genera riesgos severos por vulnerabilidad a deslaves,
+        fallas por esfuerzo cortante en muros y sobrecostos por desperdicio de insumos.
+      </p>
+      <span class="badge">Estatus: Brecha Tecnológica Identificada</span>
+    </article>
+
+    <!-- Objetivo General -->
+    <article class="card destacado" id="objetivo">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      </div>
+      <h2>Objetivo General</h2>
+      <p>
+        Desarrollar una solución web interactiva que sintetice metadatos geográficos (EXIF), segmentación de imágenes
+        mediante visión por computador y modelos predictivos de IA, para determinar la viabilidad geotécnica de un lote,
+        dimensionar volumétricamente la estructura y emitir un presupuesto optimizado.
+      </p>
+      <span class="badge">Enfoque: Ingeniería + IA Multimodal</span>
+    </article>
+
+    <!-- Justificación -->
+    <article class="card destacado" id="justificacion">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      </div>
+      <h2>Justificación y Relevancia</h2>
+      <p>
+        El proyecto democratiza la evaluación técnica estructural. Al procesar imágenes fotográficas del sitio, el
+        sistema extrae las coordenadas GPS para consultar históricos pluviométricos y topográficos, correlacionándolos
+        con la inclinación del talud estimada por visión artificial para prevenir desastres.
+      </p>
+      <span class="badge">Impacto: Mitigación de Riesgo</span>
+    </article>
+
+    <!-- Arquitectura de Procesamiento de IA -->
+    <article class="card destacado full-width" id="procesamiento">
+      <h2>Flujo Operativo de Procesamiento por IA</h2>
+      <div class="pipeline-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Extracción EXIF & Geo-localización</h3>
+          <p>Lectura de metadatos de la imagen subida (coordenadas GPS, altitud y hora) para consultar APIS meteorológicas.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Análisis Visión por Computador</h3>
+          <p>Segmentación semántica del terreno para identificar pendientes y cohesión aparente del suelo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Cálculo de Cargas y Vanos</h3>
+          <p>Aplicación de fórmulas mecánicas para evaluar el peso muerto de mampostería vs. áreas de apertura.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Dictamen de Viabilidad & Render</h3>
+          <p>Generación de reporte de estabilidad y sintetización visual 3D descriptiva de la estructura final.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SIMULADOR INTERACTIVO CON JAVASCRIPT -->
+    <article class="card destacado full-width" id="simulador">
+      <h2>Simulador Metodológico & Procesamiento IA</h2>
+      <p class="sim-subtitle">Carga la fotografía del terreno para iniciar el procesamiento automatizado y cotización de insumos.</p>
+
+      <div class="simulador-container">
+        <!-- Paso 1: Carga de Imagen y EXIF -->
+        <div class="sim-card">
+          <h3>1. Carga de Fotografía del Terreno</h3>
+          <div class="upload-box" id="drop-zone">
+            <input type="file" id="file-input" accept="image/*" hidden />
+            <div id="upload-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" width="48" height="48">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <p>Haz clic para subir la imagen del lote/terreno</p>
+            </div>
+            <img id="preview-img" src="" alt="Previsualización terreno" class="hidden" />
+          </div>
+
+          <!-- Metadatos EXIF Simulados -->
+          <div id="exif-results" class="results-box hidden">
+            <h4>📍 Metadatos EXIF Extraídos</h4>
+            <ul>
+              <li><strong>Ubicación:</strong> <span id="exif-coords">4.6097° N, 74.0817° W (Bogotá, Colombia)</span></li>
+              <li><strong>Topografía del Suelo:</strong> <span class="badge-warning">Inclinación Moderada (18°)</span></li>
+              <li><strong>Riesgo Pluviométrico:</strong> Medio-Alto (Temporada de Lluvias)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Paso 2: Especificación de Materiales y Costos -->
+        <div class="sim-card">
+          <h3>2. Parámetros de Estructura y Costos</h3>
+          <form id="calc-form">
+            <div class="form-group">
+              <label for="tipo-ladrillo">Tipo de Mampostería / Ladrillo:</label>
+              <input type="text" id="tipo-ladrillo" value="Ladrillo común rojo (Tolete)" placeholder="Ej. Ladrillo tolete rojo" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="precio-ladrillo">Precio por Ladrillo ($):</label>
+                <input type="number" id="precio-ladrillo" value="1200" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="precio-cristal">Precio m^2 Cristal ($):</label>
+                <input type="number" id="precio-cristal" value="85000" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="num-ventanas">Número de Ventanas:</label>
+                <input type="number" id="num-ventanas" value="4" min="0" required />
+              </div>
+              <div class="form-group">
+                <label for="num-puertas">Número de Puertas:</label>
+                <input type="number" id="num-puertas" value="2" min="0" required />
+              </div>
+            </div>
+
+            <button type="button" id="btn-procesar" class="btn-primary">Procesar con IA y Calcular</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Paso 3: Resultados, Fórmulas y Render IA -->
+      <div id="output-section" class="results-container hidden">
+        <hr class="divider" />
+        <h3>3. Dictamen de Ingeniería & Render Proyectado por IA</h3>
+
+        <div class="output-grid">
+          <!-- Render IA Proyectado -->
+          <div class="render-box">
+            <h4>Visualización 3D Sugerida (Render IA)</h4>
+            <!-- Ruta de imagen personalizable -->
+            <img id="render-ia-img" src="img/ejemplo.jpg" alt="Render de la estructura proyectada por IA" />
+            <p class="img-caption">Proyección visual generada considerando la topografía del lote y la distribución de vanos.</p>
+          </div>
+
+          <!-- Cuadro de Fórmulas y Presupuesto -->
+          <div class="data-box">
+            <h4>📊 Desglose Técnico & Presupuesto</h4>
+            
+            <div class="formula-card">
+              <h5>Fórmulas Aplicadas:</h5>
+              <p>Area Neta = Area Total - (Area Ventanas + Area Puestas)</p>
+              <p>Unidades = Área Neta X 55 ladrillos/m^2 X 1.05 (5% desperdicio)</p>
+            </div>
+
+            <table class="table-results">
+              <thead>
+                <tr>
+                  <th>Insumo / Elemento</th>
+                  <th>Cantidad Calculada</th>
+                  <th>Costo Estimado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span id="out-tipo-ladrillo">Ladrillo</span></td>
+                  <td><span id="out-cant-ladrillos">0</span> unidades</td>
+                  <td>$<span id="out-costo-ladrillos">0</span></td>
+                </tr>
+                <tr>
+                  <td>Cristal para Ventanas</td>
+                  <td><span id="out-cant-cristal">0</span> m^2</td>
+                  <td>$<span id="out-costo-cristal">0</span></td>
+                </tr>
+                <tr>
+                  <td>Marcos y Puertas Base</td>
+                  <td><span id="out-cant-puertas">0</span> unidades</td>
+                  <td>$<span id="out-costo-puertas">0</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="total-box">
+              <strong>Costo Total Estimado en Materiales:</strong>
+              <span id="out-costo-total" class="total-price">$0</span>
+            </div>
+
+            <div class="dictamen-box alert-success">
+              <strong>✅ Dictamen Geotécnico de la IA:</strong> Terreno apto para construcción de hasta 2 niveles de mampostería. Se recomienda viga de amarre reforzada por la inclinación detectada en la foto.
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Programación III | Sistema MIMARI | <strong>DIEGO ALEJANDRO VARGAS TORRES</strong></p>
+  </footer>
+
+  <!-- Archivo JavaScript con la lógica del simulador -->
+  <script src="script.js"></script>
+</body>
+
+</html>
