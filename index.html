@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIMARI | Plataforma de Inteligencia Geotécnica y Arquitectónica</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  <!-- Librerías estables para HEIC y EXIF -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script src="app.js" defer></script>
 </head>
 
 <body>
@@ -112,7 +115,7 @@
       </div>
     </article>
 
-    <!-- SIMULADOR INTERACTIVO CON JAVASCRIPT -->
+    <!-- SIMULADOR INTERACTIVO (SIMULACIÓN DE LA METODOLOGÍA) -->
     <article class="card destacado full-width" id="simulador">
       <h2>Simulador Metodológico & Procesamiento IA</h2>
       <p class="sim-subtitle">Carga la fotografía del terreno para iniciar el procesamiento automatizado y cotización de insumos.</p>
@@ -147,10 +150,10 @@
 
         <!-- Paso 2: Especificación de Materiales y Costos -->
         <div class="sim-card">
-          <h3>2. Parámetros de Estructura y Costos</h3>
+          <h3>2. Parámetros de Estructura y Costos Base</h3>
           <form id="calc-form">
             <div class="form-group">
-              <label for="tipo-ladrillo">Tipo de Mampostería / Ladrillo:</label>
+              <label for="tipo-ladrillo">Tipo de Mampostería Principal:</label>
               <input type="text" id="tipo-ladrillo" value="Ladrillo común rojo (Tolete)" placeholder="Ej. Ladrillo tolete rojo" required />
             </div>
 
@@ -160,7 +163,7 @@
                 <input type="number" id="precio-ladrillo" value="1200" min="0" required />
               </div>
               <div class="form-group">
-                <label for="precio-cristal">Precio m^2 Cristal ($):</label>
+                <label for="precio-cristal">Precio m² Cristal ($):</label>
                 <input type="number" id="precio-cristal" value="85000" min="0" required />
               </div>
             </div>
@@ -176,7 +179,7 @@
               </div>
             </div>
 
-            <button type="button" id="btn-procesar" class="btn-primary">Procesar con IA y Calcular</button>
+            <button type="button" id="btn-procesar" class="btn-primary">Procesar con IA y Calcular Base</button>
           </form>
         </div>
       </div>
@@ -190,19 +193,18 @@
           <!-- Render IA Proyectado -->
           <div class="render-box">
             <h4>Visualización 3D Sugerida (Render IA)</h4>
-            <!-- Ruta de imagen personalizable -->
             <img id="render-ia-img" src="img/ejemplo.jpg" alt="Render de la estructura proyectada por IA" />
             <p class="img-caption">Proyección visual generada considerando la topografía del lote y la distribución de vanos.</p>
           </div>
 
           <!-- Cuadro de Fórmulas y Presupuesto -->
           <div class="data-box">
-            <h4>📊 Desglose Técnico & Presupuesto</h4>
+            <h4>📊 Desglose Técnico & Presupuesto Base</h4>
             
             <div class="formula-card">
               <h5>Fórmulas Aplicadas:</h5>
-              <p>Area Neta = Area Total - (Area Ventanas + Area Puestas)</p>
-              <p>Unidades = Área Neta X 55 ladrillos/m^2 X 1.05 (5% desperdicio)</p>
+              <p><strong>Área Neta</strong> = Área Total - (Área Ventanas + Área Puertas)</p>
+              <p><strong>Unidades</strong> = Área Neta × 55 ladrillos/m² × 1.05 (5% desperdicio)</p>
             </div>
 
             <table class="table-results">
@@ -221,7 +223,7 @@
                 </tr>
                 <tr>
                   <td>Cristal para Ventanas</td>
-                  <td><span id="out-cant-cristal">0</span> m^2</td>
+                  <td><span id="out-cant-cristal">0</span> m²</td>
                   <td>$<span id="out-costo-cristal">0</span></td>
                 </tr>
                 <tr>
@@ -233,7 +235,7 @@
             </table>
 
             <div class="total-box">
-              <strong>Costo Total Estimado en Materiales:</strong>
+              <strong>Costo Base Estimado:</strong>
               <span id="out-costo-total" class="total-price">$0</span>
             </div>
 
@@ -244,14 +246,53 @@
         </div>
       </div>
     </article>
+
+    <!-- MÓDULO EXCLUSIVO DE LA SEMANA 04: REGISTRO DE INSUMOS MEDIANTE POO Y EVENTOS -->
+    <article class="card destacado full-width" id="registro-materiales">
+      <h2>Módulo de Gestión de Insumos Extra (POO & Eventos)</h2>
+      <p class="sim-subtitle">Registra manualmente materiales adicionales al proyecto utilizando objetos, clases y eventos dinámicos.</p>
+
+      <form id="form-material" class="sim-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mat-nombre">Nombre del Material / Insumo:</label>
+            <input type="text" id="mat-nombre" placeholder="Ej. Viga de Amarre 1/2 pulgada" required />
+          </div>
+          <div class="form-group">
+            <label for="mat-tipo">Categoría / Tipo de Estructura:</label>
+            <input type="text" id="mat-tipo" placeholder="Ej. Estructural / Refuerzo" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mat-precio">Precio Unitario ($):</label>
+            <input type="number" id="mat-precio" min="1" placeholder="Ej. 45000" required />
+          </div>
+          <div class="form-group">
+            <label for="mat-cantidad">Cantidad Requerida:</label>
+            <input type="number" id="mat-cantidad" min="1" placeholder="Ej. 12" required />
+          </div>
+        </div>
+
+        <button type="submit" id="btn-registrar" class="btn-primary">Registrar Material con POO</button>
+      </form>
+
+      <div class="results-container margin-top">
+        <h3>Inventario Acumulado de Insumos</h3>
+        <ul id="lista-materiales" class="lista-poo"></ul>
+        
+        <div class="total-box margin-top">
+          <strong>Costo Adicional Acumulado:</strong>
+          <span id="costo-acumulado-total" class="total-price">$0</span>
+        </div>
+      </div>
+    </article>
   </main>
 
   <footer>
     <p>Programación III | Sistema MIMARI | <strong>DIEGO ALEJANDRO VARGAS TORRES</strong></p>
   </footer>
-
-  <!-- Archivo JavaScript con la lógica del simulador -->
-  <script src="script.js"></script>
 </body>
 
 </html>

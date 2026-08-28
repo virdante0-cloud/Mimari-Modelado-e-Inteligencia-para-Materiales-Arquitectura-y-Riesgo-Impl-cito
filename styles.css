@@ -396,3 +396,25 @@ dotlottie-player {
   padding: 2px 8px;
   border-radius: 12px;
 }
+
+/* Estilos Módulo POO Semana 04 */
+.lista-poo {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.item-material {
+  background: #ffffff;
+  padding: 12px 16px;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.margin-top {
+  margin-top: 20px;
+}
