@@ -40,7 +40,7 @@
       <div class="card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="9" x2="12" />
           <line x1="12" y1="17" x2="12.01" y2="17" />
         </svg>
       </div>
@@ -184,27 +184,42 @@
         </div>
       </div>
 
-      <!-- Paso 3: Resultados, Fórmulas y Render IA -->
+      <!-- Paso 3: Resultados, Fórmulas, Verificación Estructural y Plano 2D -->
       <div id="output-section" class="results-container hidden">
         <hr class="divider" />
-        <h3>3. Dictamen de Ingeniería & Render Proyectado por IA</h3>
+        <h3>3. Verificación Estructural, Dictamen & Proyección Plani-volumétrica</h3>
 
         <div class="output-grid">
-          <!-- Render IA Proyectado -->
+          <!-- Render IA & Plano Técnico Generado -->
           <div class="render-box">
             <h4>Visualización 3D Sugerida (Render IA)</h4>
             <img id="render-ia-img" src="img/ejemplo.jpg" alt="Render de la estructura proyectada por IA" />
-            <p class="img-caption">Proyección visual generada considerando la topografía del lote y la distribución de vanos.</p>
+            <p class="img-caption">Proyección visual generada considerando la topografía del lote.</p>
+
+            <!-- Generador de Plano Técnico 2D / Corte Estructural en Canvas -->
+            <h4 class="margin-top">📐 Plano de Corte y Predimensionamiento (IA Canvas)</h4>
+            <canvas id="canvas-plano" width="400" height="250" style="border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 8px; width: 100%;"></canvas>
+            <p class="img-caption">Esquema estructural generado dinámicamente con medidas de vigas, placa y columnas.</p>
           </div>
 
-          <!-- Cuadro de Fórmulas y Presupuesto -->
+          <!-- Cuadro de Fórmulas, Predimensionamiento y Presupuesto -->
           <div class="data-box">
-            <h4>📊 Desglose Técnico & Presupuesto Base</h4>
+            <h4>📊 Desglose Técnico, Cargas y Predimensionamiento</h4>
             
+            <!-- Fórmulas Estructurales Aplicadas -->
             <div class="formula-card">
-              <h5>Fórmulas Aplicadas:</h5>
-              <p><strong>Área Neta</strong> = Área Total - (Área Ventanas + Área Puertas)</p>
-              <p><strong>Unidades</strong> = Área Neta × 55 ladrillos/m² × 1.05 (5% desperdicio)</p>
+              <h5>Fórmulas Estructurales (NSR-10 / Predimensionamiento):</h5>
+              <p><strong>Espesor Placa/Techo:</strong> h = L / 25 (Donde L es la luz libre)</p>
+              <p><strong>Peralte Viga Principal:</strong> h_v = L / 10 | <strong>Ancho Viga:</strong> b = h_v / 2</p>
+              <p><strong>Volumen Concreto Estructural:</strong> V = Largo × Ancho × Espesor (m³)</p>
+            </div>
+
+            <!-- Métricas del Predimensionamiento -->
+            <div class="predim-results" style="background: #eff6ff; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+              <p><strong>Luz Máxima (L):</strong> <span id="out-luz-libre">4.00</span> m</p>
+              <p><strong>Grosor Estimado de Placa (h):</strong> <span id="out-grosor-placa">0.16</span> m (16 cm)</p>
+              <p><strong>Sección de Viga Sugerida:</strong> <span id="out-seccion-viga">40 cm x 20 cm</span></p>
+              <p><strong>Volumen Concreto Requerido:</strong> <span id="out-volumen-concreto">0.00</span> m³</p>
             </div>
 
             <table class="table-results">
@@ -239,18 +254,20 @@
               <span id="out-costo-total" class="total-price">$0</span>
             </div>
 
-            <div class="dictamen-box alert-success">
-              <strong>✅ Dictamen Geotécnico de la IA:</strong> Terreno apto para construcción de hasta 2 niveles de mampostería. Se recomienda viga de amarre reforzada por la inclinación detectada en la foto.
+            <!-- Dictamen y Factor de Seguridad Estructural -->
+            <div class="dictamen-box alert-success" id="box-dictamen">
+              <strong>✅ Dictamen de Resistencia y Estabilidad:</strong>
+              <p id="texto-dictamen">El peso propio calculado está dentro de los márgenes admisibles del terreno. Factor de Seguridad Estructural: <strong>1.85 (Estable)</strong>.</p>
             </div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- MÓDULO EXCLUSIVO DE LA SEMANA 04: REGISTRO DE INSUMOS MEDIANTE POO Y EVENTOS -->
+    <!-- MÓDULO EXCLUSIVO DE REGISTRO DE INSUMOS Y FILTRO DINÁMICO (SEMANAS 04 Y 05) -->
     <article class="card destacado full-width" id="registro-materiales">
-      <h2>Módulo de Gestión de Insumos Extra (POO & Eventos)</h2>
-      <p class="sim-subtitle">Registra manualmente materiales adicionales al proyecto utilizando objetos, clases y eventos dinámicos.</p>
+      <h2>Módulo de Gestión de Insumos Extra (POO & Eventos DOM)</h2>
+      <p class="sim-subtitle">Registra manualmente materiales adicionales al proyecto utilizando objetos, clases y filtrado dinámico del DOM.</p>
 
       <form id="form-material" class="sim-card">
         <div class="form-row">
@@ -280,6 +297,18 @@
 
       <div class="results-container margin-top">
         <h3>Inventario Acumulado de Insumos</h3>
+        
+        <!-- Campo de Filtrado Dinámico (Semana 05) -->
+        <div class="form-group margin-bottom">
+          <label for="input-busqueda">🔍 Filtrar insumos registrados (Filtro Dinámico DOM):</label>
+          <input 
+            type="text" 
+            id="input-busqueda" 
+            placeholder="Escribe el nombre o categoría para buscar en tiempo real..." 
+          />
+        </div>
+
+        <!-- Lista de materiales cargados dinámicamente -->
         <ul id="lista-materiales" class="lista-poo"></ul>
         
         <div class="total-box margin-top">
