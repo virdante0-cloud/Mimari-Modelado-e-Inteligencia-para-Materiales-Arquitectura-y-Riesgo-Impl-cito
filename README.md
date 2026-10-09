@@ -35,8 +35,8 @@ mostraba nada y la lógica estaba repartida en varios lugares.
 - web.xml: página de bienvenida y error-page hacia error.jsp.
 - README: pasos de compilación, despliegue y solución de problemas.
 
-PRUEBAS
+*PRUEBAS*
 - Probado el servlet con Chromium: cálculo, validaciones, subida de
   archivos, /consulta y errores con forward a error.jsp.
 - Pendiente de verificar en Tomcat 10.1 real: generación del WAR con
-  Maven y el funcionamiento de los JSP."
+  Maven y el funcionamiento de los JSP.
