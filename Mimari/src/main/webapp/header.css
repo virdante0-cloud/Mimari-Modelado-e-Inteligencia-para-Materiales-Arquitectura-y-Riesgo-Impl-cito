@@ -1,0 +1,78 @@
+/* Encabezado animado de MIMARI (header.jsp). Solo CSS. Se respeta prefers-reduced-motion. */
+@keyframes mm-flujo { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes mm-deriva { to { transform: translate(48px, 48px); } }
+@keyframes mm-flota { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px, 18px) scale(1.15); } }
+@keyframes mm-brillo { 0%,100% { box-shadow: 0 0 14px rgba(34,211,238,.45); } 50% { box-shadow: 0 0 28px rgba(167,139,250,.8); } }
+@keyframes mm-texto { to { background-position: 200% center; } }
+@keyframes mm-pulso { 0% { box-shadow: 0 0 0 0 rgba(74,222,128,.7); } 100% { box-shadow: 0 0 0 10px rgba(74,222,128,0); } }
+@keyframes mm-entra { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+
+/* Fondo animado: la barra sola (páginas sin .hero) y el .hero de las páginas principales */
+.mimari-top, .hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #0b1220 0%, #1e3a8a 28%, #0e7490 52%, #5b21b6 76%, #0b1220 100%);
+  background-size: 300% 300%; animation: mm-flujo 20s ease infinite;
+}
+.mimari-top::before, .hero::before {
+  content: ""; position: absolute; inset: -48px; pointer-events: none;
+  background-image: linear-gradient(rgba(125,211,252,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.10) 1px, transparent 1px);
+  background-size: 48px 48px; animation: mm-deriva 12s linear infinite;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero .mimari-top { background: none; animation: none; box-shadow: none; border: none; border-radius: 0; padding-left: 0; padding-right: 0; margin-bottom: 36px; overflow: visible; }
+.hero .mimari-top::before { display: none; }
+
+.mimari-top {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px;
+  padding: 14px 24px; margin-bottom: 25px; border-radius: 18px; color: #fff;
+  box-shadow: 0 10px 30px rgba(15,23,42,.25); animation: mm-flujo 20s ease infinite, mm-entra .6s ease both;
+}
+.mimari-top > * { position: relative; z-index: 2; }
+.mimari-top .orbe { position: absolute; z-index: 0; border-radius: 50%; filter: blur(34px); opacity: .5; pointer-events: none; }
+.mimari-top .orbe-1 { width: 220px; height: 220px; background: #38bdf8; left: 8%; top: -120px; animation: mm-flota 14s ease-in-out infinite; }
+.mimari-top .orbe-2 { width: 260px; height: 260px; background: #a855f7; right: 6%; bottom: -150px; animation: mm-flota 18s ease-in-out -7s infinite reverse; }
+
+.mimari-top .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+.mimari-top .logo { width: 42px; height: 42px; flex: none; display: grid; place-items: center; font-weight: 800; font-size: 21px; color: #0b1220;
+  border-radius: 12px; background: linear-gradient(135deg, #22d3ee, #a78bfa); animation: mm-brillo 4s ease-in-out infinite; }
+.mimari-top .marca-texto strong { display: block; font-size: 1.35rem; letter-spacing: 3px; line-height: 1.1;
+  background: linear-gradient(90deg, #7dd3fc, #f0abfc, #7dd3fc); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: mm-texto 6s linear infinite; }
+.mimari-top .marca-texto small { display: block; font-size: .68rem; opacity: .85; max-width: 330px; line-height: 1.25; }
+
+.mimari-top .enlaces { list-style: none; display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; }
+.mimari-top .enlaces > li { position: relative; }
+.mimari-top .enlaces a { position: relative; display: block; padding: 9px 14px; border-radius: 10px; color: #e0f2fe; text-decoration: none; font-weight: 600; font-size: .92rem; transition: background .25s, color .25s, transform .2s; }
+.mimari-top .enlaces > li > a::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #22d3ee, #e879f9); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+.mimari-top .enlaces > li > a:hover, .mimari-top .enlaces > li > a:focus-visible { background: rgba(255,255,255,.12); color: #fff; transform: translateY(-1px); }
+.mimari-top .enlaces > li > a:hover::after, .mimari-top .enlaces > li > a.activo::after { transform: scaleX(1); }
+.mimari-top .enlaces a.activo { background: rgba(255,255,255,.16); color: #fff; }
+
+.mimari-top .submenu { list-style: none; position: absolute; top: 100%; left: 0; min-width: 230px; margin: 6px 0 0; padding: 8px; border-radius: 14px; z-index: 20;
+  background: rgba(15,23,42,.94); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 20px 40px rgba(2,6,23,.45);
+  opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .22s, transform .22s, visibility .22s; }
+.mimari-top .desplegable:hover .submenu, .mimari-top .desplegable:focus-within .submenu { opacity: 1; visibility: visible; transform: none; }
+.mimari-top .submenu a { padding: 8px 12px; font-weight: 500; font-size: .88rem; }
+.mimari-top .submenu a:hover { background: linear-gradient(90deg, rgba(34,211,238,.25), rgba(168,85,247,.25)); }
+
+.mimari-top .usuario { display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); font-size: .88rem; font-weight: 600; }
+.mimari-top .punto { width: 9px; height: 9px; border-radius: 50%; background: #4ade80; animation: mm-pulso 1.8s ease-out infinite; }
+.mimari-top .nombre { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mimari-top .usuario form { margin: 0; }
+.mimari-top .usuario button { border: none; cursor: pointer; padding: 6px 14px; border-radius: 999px; font: inherit; font-size: .82rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, #ef4444, #be123c); transition: transform .15s, filter .2s; }
+.mimari-top .usuario button:hover { transform: scale(1.05); filter: brightness(1.15); }
+
+/* Menú móvil (sin JavaScript: casilla + etiqueta) */
+.mimari-top .nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.mimari-top .burger { display: none; cursor: pointer; padding: 8px; }
+.mimari-top .burger span { display: block; width: 24px; height: 2px; margin: 5px 0; background: #fff; border-radius: 2px; transition: transform .3s, opacity .3s; }
+@media (max-width: 980px) {
+  .mimari-top .burger { display: block; order: 2; margin-left: auto; }
+  .mimari-top .usuario { order: 3; }
+  .mimari-top .enlaces { order: 4; display: none; width: 100%; flex-direction: column; align-items: stretch; }
+  .mimari-top .nav-toggle:checked ~ .enlaces { display: flex; }
+  .mimari-top .nav-toggle:checked ~ .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .mimari-top .nav-toggle:checked ~ .burger span:nth-child(2) { opacity: 0; }
+  .mimari-top .nav-toggle:checked ~ .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mimari-top .submenu { position: static; opacity: 1; visibility: visible; transform: none; background: rgba(255,255,255,.06); box-shadow: none; margin: 0 0 0 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .mimari-top, .mimari-top *, .hero, .hero::before { animation: none !important; transition: none !important; } }

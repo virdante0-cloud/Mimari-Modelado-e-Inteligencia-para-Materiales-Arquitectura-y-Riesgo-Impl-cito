@@ -1,0 +1,6 @@
+# Copia este archivo como  mimari.local.properties  (mismo lugar que el pom.xml) y escribe tu clave.
+# mimari.local.properties está en .gitignore: nunca se sube a git.
+# Reinicia Main después de cambiarlo.
+
+gemini.api.key=PEGA_AQUI_TU_API_KEY_DE_GEMINI
+# gemini.modelo=gemini-2.5-flash
