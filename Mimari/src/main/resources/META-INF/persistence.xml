@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Semana 13 - configuración de JPA (la implementación es Hibernate).
+     Unidad "catalogoPU": usa el DataSource que administra el SERVIDOR, publicado por JNDI como java:comp/env/jdbc/programacion3
+     (en Main.java para Tomcat embebido; en db/context.xml.ejemplo para Tomcat externo).
+     Tomcat no trae un gestor JTA, por eso la unidad es RESOURCE_LOCAL (la transacción la abre y cierra InsumoService).
+     En un servidor Jakarta EE completo (WildFly, TomEE) sería transaction-type="JTA" con <jta-data-source>. -->
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <persistence-unit name="catalogoPU" transaction-type="RESOURCE_LOCAL">
+    <non-jta-data-source>java:comp/env/jdbc/programacion3</non-jta-data-source>
+    <class>com.mimari.modelo.Usuario</class>
+    <class>com.mimari.modelo.Insumo</class>
+    <class>com.mimari.modelo.Archivo</class>
+    <class>com.mimari.modelo.Analisis</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <!-- Crea o completa las tablas (usuario, insumo, archivo, analisis) la primera vez que se usan.
+           Cómodo para desarrollar; en producción se quitaría y se usaría solo db/schema.sql. -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

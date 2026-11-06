@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>Mimari</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- Sigue generando el .war para Tomcat externo; además se puede ejecutar con Main desde IntelliJ -->
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Tomcat 10.1 = Jakarta Servlet 6.0 (mismo que antes) -->
+        <tomcat.version>10.1.56</tomcat.version>
+    </properties>
+
+    <dependencies>
+        <!-- Tomcat embebido: trae la API de Servlet (jakarta.servlet), por eso ya no se declara aparte -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <!-- Semana 13: pool de conexiones de Tomcat (BasicDataSourceFactory) para el DataSource jdbc/programacion3.
+             No viene dentro de tomcat-embed-core. En Tomcat externo ya existe en su carpeta lib (por eso se excluye del .war). -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <!-- Jasper: compila las páginas JSP dentro del Tomcat embebido -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+        <!-- Jasper trae por defecto el compilador ecj 3.33, demasiado viejo para JDK 22+.
+             Se fija uno más nuevo para que compile los JSP con JDK 24. -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
+            <version>3.42.0</version>
+        </dependency>
+        <!-- Semana 11: conector JDBC de MySQL. En Tomcat externo va dentro del .war (WEB-INF/lib) -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
+        </dependency>
+        <!-- Semana 13: JPA con Hibernate como implementación (trae jakarta.persistence-api) -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+        <!-- JSON para la API de Gemini y las respuestas de /api/archivos e /api/ia -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <!-- Semana 14: JSTL para Jakarta EE 10 (URIs jakarta.tags.core, jakarta.tags.fmt, jakarta.tags.xml).
+             Tomcat no la trae: va dentro del .war. Se excluyen las API de servlet/JSP/EL que Tomcat ya aporta. -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+            <exclusions>
+                <exclusion><groupId>jakarta.servlet</groupId><artifactId>*</artifactId></exclusion>
+                <exclusion><groupId>jakarta.servlet.jsp</groupId><artifactId>*</artifactId></exclusion>
+                <exclusion><groupId>jakarta.el</groupId><artifactId>*</artifactId></exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+            <exclusions>
+                <exclusion><groupId>jakarta.servlet</groupId><artifactId>*</artifactId></exclusion>
+                <exclusion><groupId>jakarta.servlet.jsp</groupId><artifactId>*</artifactId></exclusion>
+                <exclusion><groupId>jakarta.el</groupId><artifactId>*</artifactId></exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- El .war se llamará mimari.war  =>  http://localhost:8080/mimari/ en Tomcat externo -->
+        <finalName>mimari</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- Tomcat externo ya trae estas librerías: no deben ir dentro del .war -->
+                    <packagingExcludes>WEB-INF/lib/tomcat-*.jar,WEB-INF/lib/ecj-*.jar</packagingExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

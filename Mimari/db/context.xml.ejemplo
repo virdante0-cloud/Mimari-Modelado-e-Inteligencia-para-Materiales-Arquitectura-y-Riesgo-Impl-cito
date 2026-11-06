@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solo para Tomcat EXTERNO (con el .war). Con Main (Tomcat embebido) no hace falta: Main publica el mismo DataSource.
+     Copia este archivo como  TOMCAT/conf/Catalina/localhost/mimari.xml  (el nombre debe coincidir con el .war),
+     cambia username/password y reinicia Tomcat.
+     El driver (mysql-connector-j) ya va dentro del .war, por eso se usa la fábrica de pool que trae Tomcat. -->
+<Context>
+  <Resource name="jdbc/programacion3"
+            auth="Container"
+            type="javax.sql.DataSource"
+            factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/programacion3"
+            username="root"
+            password="tu_clave"
+            maxTotal="10" />
+</Context>
