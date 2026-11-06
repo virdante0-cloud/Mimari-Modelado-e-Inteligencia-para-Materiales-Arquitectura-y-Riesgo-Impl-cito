@@ -1,12 +1,20 @@
-## **Actualizaciones — Semana 05**
+## Entrega: Semana 13 y Semana 14 (rama `semana-13-14`)
+Esta rama reúne el trabajo de las dos semanas en una sola entrega, con dos commits (uno por semana) para que se vea qué aportó cada una.
 
-- **Acceso y Selección Dinámica de Nodos:** Integración combinada de **`getElementById()`**, **`querySelector()`** y **`querySelectorAll()`** para la selección eficiente de elementos y la aplicación de estilos condicionales en el DOM.
-- **Filtro de Insumos en Tiempo Real:** Implementación del evento **`input`** en el campo de búsqueda para filtrar la lista de materiales mediante métodos de arreglos (**`filter`** y **`includes`**), recalculando automáticamente el presupuesto acumulado.
-- **Predimensionamiento de Ingeniería:** Cálculo automatizado de **vanos** (descuento de áreas de puertas y ventanas), estimación de insumos de **mampostería** (con factor de desperdicio del **5%**), y proyección normativa de **peraltes para vigas y losas**.
-- **Renderizado Vectorial en Canvas:** Implementación de la API de **HTML5 Canvas** para generar de forma dinámica el **plano de corte estructural 2D**, dibujando elementos y cotas de medida exactas.
+### Semana 13 · EJB y JPA
+- **Entidades JPA** (`modelo/`): `Usuario`, `Insumo`, `Archivo`, `Analisis`, con `META-INF/persistence.xml` (unidad `catalogoPU`, Hibernate 6, `RESOURCE_LOCAL`).
+- **Servicios sin estado** (`servicio/`), equivalentes a EJB `@Stateless`: `UsuarioService`, `InsumoService`, `ArchivoService`, `AnalisisService`;
+  `CarritoTemporal` (con estado, equivalente a `@Stateful`).
+- **`Persistencia`**: dueño del `EntityManagerFactory` y de las transacciones (begin/commit/rollback); `PersistenciaListener` lo cierra al detener la aplicación.
+- **DataSource por JNDI** (`jdbc/programacion3`), publicado desde `Main.java` (Tomcat embebido) o `db/context.xml.ejemplo` (Tomcat externo).
+- **Registro y acceso de usuarios** con clave en PBKDF2 (`seguridad/Claves`).
 
-## **Actualizaciones — Semana 04**
+### Semana 14 · JSTL e internacionalización
+- **Vistas sin scriptlets** en `WEB-INF/vistas/` con JSTL (`jakarta.tags.core`, `fmt`, `xml`); las excepciones (`saludo.jsp`, `error.jsp`) son a propósito.
+- **i18n español/inglés** con `mensajes.properties` y `mensajes_en.properties` (`/catalogo?idioma=en`).
+- **`xml-demo.jsp`** con XPath y el catálogo de materiales y elementos estructurales renderizado con JSTL.
 
-- **POO y Clases:** Creación de la clase **`Material`** con **constructor**, método de cálculo de subtotal y formateo de moneda colombiana usando **`toLocaleString("es-CO")`**.
-- **Manipulación del DOM:** Captura de eventos **`submit`** en el formulario, generación e inserción dinámica de nodos **`<li>`** y actualización en pantalla del acumulador total de costos.
-- **Procesamiento de Archivos:** Validación de peso máximo (**límite de 5 MB**), lectura mediante **`FileReader`** para conversión de fotos a **Base64** y soporte inicial para imágenes de iPhone (**`.heic`**).
+### Corrección incluida en esta rama
+Al registrar un usuario aparecía `object of type Usuario is not an instance of Usuario`: la clase estaba cargada dos veces por classloaders distintos
+(classpath de IntelliJ y `WEB-INF/classes` del Tomcat embebido). Se soluciona en `Main.java` haciendo que el contexto web delegue primero al classloader padre
+(`WebappLoader` con `setDelegate(true)`).
