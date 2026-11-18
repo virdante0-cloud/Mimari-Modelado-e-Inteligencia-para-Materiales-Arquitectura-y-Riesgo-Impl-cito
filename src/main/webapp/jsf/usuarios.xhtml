@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Semana 16 - pantalla del ADMINISTRADOR: lista de usuarios y eliminación. Solo se abre con rol ADMIN
+     (AutenticacionFilter responde 403 a los demás). -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:define name="titulo">Usuarios</ui:define>
+    <ui:define name="encabezado">Administración de usuarios</ui:define>
+
+    <ui:define name="contenido">
+        <article class="card destacado full-width">
+            <h2>Usuarios registrados</h2>
+            <h:messages layout="list" infoClass="sim-estado ok" errorClass="sim-estado error"/>
+
+            <h:form id="usuarios">
+                <h:dataTable value="#{usuariosBean.usuarios}" var="u" styleClass="table-results">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{u.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Usuario</f:facet>
+                        <h:outputText value="#{u.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Rol</f:facet>
+                        <h:outputText value="#{u.rol}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Creado</f:facet>
+                        <h:outputText value="#{u.creado}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Bogota"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <!-- Solo se ofrece eliminar a OTROS usuarios que no sean administradores -->
+                        <h:commandButton value="Eliminar" action="#{usuariosBean.eliminar(u)}" styleClass="btn-peligro"
+                                         rendered="#{u.id != sesion.usuarioId and not u.admin}"
+                                         onclick="return confirm('¿Eliminar este usuario y todos sus datos?');"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </article>
+    </ui:define>
+</ui:composition>

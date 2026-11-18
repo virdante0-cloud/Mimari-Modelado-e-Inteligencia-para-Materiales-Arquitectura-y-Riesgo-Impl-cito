@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- Semanas 15 y 16 - "Mis insumos" con JSF: formulario con validadores, <h:messages> y <h:dataTable>.
+     La vista solo declara componentes; la lógica está en InsumosBean (CDI). -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                template="/WEB-INF/templates/plantilla.xhtml">
+
+    <ui:define name="titulo">Mis insumos</ui:define>
+    <ui:define name="encabezado">Mis insumos</ui:define>
+
+    <ui:define name="contenido">
+        <article class="card destacado full-width">
+            <h2>Agregar un insumo</h2>
+
+            <!-- Aquí aparecen los errores de validación y los avisos de las acciones -->
+            <h:messages id="mensajes" globalOnly="false" layout="list"
+                        infoClass="sim-estado ok" errorClass="sim-estado error"/>
+
+            <h:form id="formulario" styleClass="sim-card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <h:outputLabel for="nombre" value="Nombre"/>
+                        <h:inputText id="nombre" value="#{insumosBean.nombre}"
+                                     required="true" requiredMessage="El nombre es obligatorio."
+                                     validatorMessage="El nombre debe tener entre 3 y 100 caracteres.">
+                            <f:validateLength minimum="3" maximum="100"/>
+                        </h:inputText>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="tipo" value="Categoría"/>
+                        <h:inputText id="tipo" value="#{insumosBean.tipo}"
+                                     required="true" requiredMessage="La categoría es obligatoria."
+                                     validatorMessage="La categoría debe tener entre 3 y 60 caracteres.">
+                            <f:validateLength minimum="3" maximum="60"/>
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <h:outputLabel for="precio" value="Precio (COP)"/>
+                        <h:inputText id="precio" value="#{insumosBean.precio}"
+                                     required="true" requiredMessage="El precio es obligatorio."
+                                     converterMessage="El precio debe ser un número."
+                                     validatorMessage="El precio debe estar entre 1 y 999.999.999.">
+                            <f:validateDoubleRange minimum="1" maximum="999999999"/>
+                        </h:inputText>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="cantidad" value="Cantidad"/>
+                        <h:inputText id="cantidad" value="#{insumosBean.cantidad}"
+                                     required="true" requiredMessage="La cantidad es obligatoria."
+                                     converterMessage="La cantidad debe ser un número entero."
+                                     validatorMessage="La cantidad debe estar entre 1 y 100000.">
+                            <f:validateLongRange minimum="1" maximum="100000"/>
+                        </h:inputText>
+                    </div>
+                </div>
+                <h:commandButton value="Guardar" action="#{insumosBean.guardar}" styleClass="btn-primary"/>
+            </h:form>
+        </article>
+
+        <article class="card destacado full-width">
+            <h2>Mi catálogo</h2>
+
+            <h:panelGroup rendered="#{empty insumosBean.insumos}">
+                <p class="sim-estado aviso">Aún no has guardado insumos.</p>
+            </h:panelGroup>
+
+            <h:form id="tabla" rendered="#{not empty insumosBean.insumos}">
+                <h:dataTable value="#{insumosBean.insumos}" var="i" styleClass="table-results">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{i.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:outputText value="#{i.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Categoría</f:facet>
+                        <h:outputText value="#{i.tipo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Precio</f:facet>
+                        <h:outputText value="#{i.precio}">
+                            <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="0"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Cantidad</f:facet>
+                        #{i.cantidad}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Subtotal</f:facet>
+                        <h:outputText value="#{i.subtotal}">
+                            <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="0"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:commandButton value="Eliminar" action="#{insumosBean.eliminar(i)}" styleClass="btn-peligro"/>
+                    </h:column>
+                </h:dataTable>
+                <p class="margin-top"><strong>Total: </strong>
+                    <h:outputText value="#{insumosBean.total}">
+                        <f:convertNumber type="currency" currencySymbol="$" maxFractionDigits="0"/>
+                    </h:outputText>
+                </p>
+            </h:form>
+        </article>
+    </ui:define>
+</ui:composition>

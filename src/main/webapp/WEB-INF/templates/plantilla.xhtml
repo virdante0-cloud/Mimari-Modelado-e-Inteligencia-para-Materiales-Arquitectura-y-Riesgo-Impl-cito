@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Semana 15 - plantilla Facelets: marco común (encabezado y menú). Cada página define solo su título y su contenido. -->
+<html lang="es"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>MIMARI - <ui:insert name="titulo">JSF</ui:insert></title>
+    <link rel="stylesheet" href="#{request.contextPath}/styles.css"/>
+    <link rel="stylesheet" href="#{request.contextPath}/header.css"/>
+</h:head>
+<h:body>
+    <header class="hero">
+        <nav class="mimari-top" aria-label="Principal">
+            <a class="marca" href="#{request.contextPath}/catalogo">
+                <span class="logo" aria-hidden="true">M</span>
+                <span class="marca-texto"><strong>MIMARI</strong></span>
+            </a>
+            <ul class="enlaces">
+                <li><a href="#{request.contextPath}/catalogo">Catálogo</a></li>
+                <li><a href="#{request.contextPath}/simulador">Simulador</a></li>
+                <li><a href="#{request.contextPath}/jsf/insumos.xhtml">Mis insumos</a></li>
+                <ui:fragment rendered="#{sesion.admin}">
+                    <li><a href="#{request.contextPath}/jsf/usuarios.xhtml">Usuarios</a></li>
+                </ui:fragment>
+            </ul>
+            <div class="usuario">
+                <span class="punto" aria-hidden="true"></span>
+                <span class="nombre">#{sesion.nombre} (#{sesion.rol})</span>
+                <form action="#{request.contextPath}/logout" method="post">
+                    <button type="submit">Salir</button>
+                </form>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <h1><ui:insert name="encabezado">MIMARI</ui:insert></h1>
+        </div>
+    </header>
+
+    <main class="grid">
+        <ui:insert name="contenido"/>
+    </main>
+</h:body>
+</html>
